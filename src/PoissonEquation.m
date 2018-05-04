@@ -3,7 +3,7 @@
 %Poisson Equation Project
 %Scientific Computing for Mechanical Engineers
 
-clearvars
+clear all
 clc
 close all
 %% Variables
