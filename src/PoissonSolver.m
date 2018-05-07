@@ -39,3 +39,7 @@ u = zeros(Nx,Ny);       %preallocating for u matrix solution
 u(1,2:Nx-1)=uby(1,2:Nx-1); %top BC on u matrix
 u(Ny,2:Nx-1)=uay(Ny,2:Nx-1);    %bottom BC on u matrix
 u(2:Nx-1,Nx)=ubx(2:Nx-1,Nx);    %right BC on u matrix
+
+% neumann boundary condition
+
+u(2:Nx-1,1)=1;
