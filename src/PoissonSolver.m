@@ -36,10 +36,28 @@ ubx = (bx.*((bx-ax).^2))+(((y-ay)/(by-ay)).*((((bx-ax).^2).*cos(pi.*bx/ax))-(bx.
 %% boundary conditions on u matrix
 
 u = zeros(Nx,Ny);       %preallocating for u matrix solution
-u(1,2:Nx-1)=uby(1,2:Nx-1); %top BC on u matrix
-u(Ny,2:Nx-1)=uay(Ny,2:Nx-1);    %bottom BC on u matrix
-u(2:Nx-1,Nx)=ubx(2:Nx-1,Nx);    %right BC on u matrix
+u(1,2:Ny-1)=uby(1,2:Ny-1); %top BC on u matrix
+u(Nx,2:Ny-1)=uay(Nx,2:Ny-1);    %bottom BC on u matrix
+u(2:Nx-1,Ny)=ubx(2:Nx-1,Ny);    %right BC on u matrix
 
 % neumann boundary condition
 
-u(2:Nx-1,1)=1;
+%u(2:Nx-1,1:Ny-1)=0.25*(2*u(2:Nx-1,1:Nx-1)+u(
+for i = 2:Nx-1
+    u(i,1) = (1/4)*(2*u(i,1)+u(i-1,1)+u(i+1,1)+((1/Nx))*F(i,1));
+end
+
+% corners
+
+u(1,1) = (u(1,2)+u(2,1))/2;         %top left
+u(1,Ny) = (u(1,Ny-1)+u(2,Ny))/2;    %top right
+u(Nx,1) = (u(Nx-1,1)+u(Nx,2))/2;    %bottom left
+u(Nx,Ny) = (u(Nx,Ny-1)+u(Nx-1,Ny))/2;
+
+%% gauss seidel 
+    
+    
+    
+    
+    
+    
