@@ -37,8 +37,8 @@ y = flipud(y);                  %flipped y vector to have it go from -pi to pi i
 %boundary conditions defined
 fa = ((x-ax).^2).*cos(pi.*x/ax);            %equation used for the top boundary condition (dirichlet)
 ga = x.*((x-ax).^2);                        %equation used for the bottom boundary condition (dirichlet)
-F = cos((pi/2).*(2.*((x-ax)/(bx-ax))+1)).*sin(pi.*((y-ay)/(by-ay)));                    %right hand side for poissons equation (first case) 
-%F = zeros(Nx,Ny);              %right hand side for laplaces equation (second case)
+%F = cos((pi/2).*(2.*((x-ax)/(bx-ax))+1)).*sin(pi.*((y-ay)/(by-ay)));                    %right hand side for poissons equation (first case) 
+F = zeros(Nx,Ny);              %right hand side for laplaces equation (second case)
 uby = fa;                                     %top BC
 uay = ga;                                     %bottom BC
 ubx = (bx.*((bx-ax).^2))+(((y-ay)/(by-ay)).*((((bx-ax).^2).*cos(pi.*bx/ax))-(bx.*((bx-ax).^2))));   %Right BC
@@ -84,7 +84,7 @@ while error > tole
 end
 
 %iterations needed to solve
-disp('Number of Iterations using the Gauss Seidel method for F =')
+disp('Number of Iterations using the Gauss Seidel method for F=0 =')
 disp(gaussit)                   %shows the total number of iteration to converge 
 
 %plots solution
@@ -93,7 +93,7 @@ mesh(x,y,u)
 xlabel('x')
 ylabel('y')
 zlabel('u')
-title('Solution using the Gauss Seidel Method for F ')
+title('Solution using the Gauss Seidel Method for F=0 ')
     
 %% second iterative method used to solve poisson equation: SOR method
 
@@ -118,7 +118,7 @@ while error > tole
 end
 
 %iterations needed to solve
-disp('Number of Iterations using the SOR method for F =')
+disp('Number of Iterations using the SOR method for F=0 =')
 disp(gaussit) %shows the total number of iteration to converge 
 
 %plots solution
@@ -127,7 +127,7 @@ mesh(x,y,u)
 xlabel('x')
 ylabel('y')
 zlabel('u')
-title('Solution using the SOR Method for F ')
+title('Solution using the SOR Method for F=0 ')
 
 
     
