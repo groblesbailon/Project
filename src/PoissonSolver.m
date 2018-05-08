@@ -20,6 +20,8 @@ Ly = by - ay;
 Nx = 200;                %nodes in the x direction
 Ny = 200;                %nodes in the y direction
 
+h = 1/(Nx+1);
+
 hx = linspace(ax,bx,Nx);        %equally spaced vector in x direction
 hy = linspace(ay,by,Ny);        %equally spaced vector in y direction
 
@@ -29,6 +31,7 @@ y = flipud(y);                  %flipped y vector to have it go from -pi to pi i
 fa = ((x-ax).^2).*cos(pi.*x/ax);
 ga = x.*((x-ax).^2);
 F = cos((pi/2).*(2.*((x-ax)/(bx-ax))+1)).*sin(pi.*((y-ay)/(by-ay)));                    %right hand side
+%F = zeros(Nx,Ny);
 uby = fa;                                                                               %top BC
 uay = ga;                                                                               %bottom BC
 ubx = (bx.*((bx-ax).^2))+(((y-ay)/(by-ay)).*((((bx-ax).^2).*cos(pi.*bx/ax))-(bx.*((bx-ax).^2))));   %Right BC
@@ -44,7 +47,7 @@ u(2:Nx-1,Ny)=ubx(2:Nx-1,Ny);    %right BC on u matrix
 
 %u(2:Nx-1,1:Ny-1)=0.25*(2*u(2:Nx-1,1:Nx-1)+u(
 for i = 2:Nx-1
-    u(i,1) = (1/4)*(2*u(i,1)+u(i-1,1)+u(i+1,1)+((1/Nx))*F(i,1));
+    u(i,1) = (1/4)*(2*u(i,1)+u(i-1,1)+u(i+1,1)+(h)*F(i,1));
 end
 
 % corners
@@ -56,8 +59,31 @@ u(Nx,Ny) = (u(Nx,Ny-1)+u(Nx-1,Ny))/2;
 
 %% gauss seidel 
     
-    
-    
+error = 1;
+tole = 1e-6;
+gaussit = 0;
+ukp1 = u;
+
+while error > tole
+    gaussit = gaussit + 1;
+    for j = 2:Ny-1
+        for i = 2:Nx-1
+            ukp1(i,j)=.25*(ukp1(i-1,j)+u(i+1,j)+ukp1(i,j-1)+u(i,j+1)+h*F(i,j));
+        end
+    end
+    error =(1/(Nx*Ny))*sum(sum(abs(ukp1-u)));
+    u = ukp1;
+end
+
+disp('gauss iteration =')
+disp(gaussit) %shows the total number of iteration to converge 
+
+figure(1)
+mesh(x,y,u)
+xlabel('x')
+ylabel('y')
+zlabel('U')
+title('3D Solution using Gauss Seidel Method')
     
     
     
