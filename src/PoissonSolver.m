@@ -4,7 +4,7 @@
 %May 9th, 2018
 %Scientific Computing
 
-clear all
+clearvars
 clc
 close all
 
@@ -20,7 +20,7 @@ Ly = by - ay;
 Nx = 200;                %nodes in the x direction
 Ny = 200;                %nodes in the y direction
 
-h = 1/(Nx+1);
+h = (1/(Nx+1))^2;
 
 hx = linspace(ax,bx,Nx);        %equally spaced vector in x direction
 hy = linspace(ay,by,Ny);        %equally spaced vector in y direction
@@ -30,8 +30,8 @@ y = flipud(y);                  %flipped y vector to have it go from -pi to pi i
 
 fa = ((x-ax).^2).*cos(pi.*x/ax);
 ga = x.*((x-ax).^2);
-F = cos((pi/2).*(2.*((x-ax)/(bx-ax))+1)).*sin(pi.*((y-ay)/(by-ay)));                    %right hand side
-%F = zeros(Nx,Ny);
+%F = cos((pi/2).*(2.*((x-ax)/(bx-ax))+1)).*sin(pi.*((y-ay)/(by-ay)));                    %right hand side
+F = zeros(Nx,Ny);
 uby = fa;                                                                               %top BC
 uay = ga;                                                                               %bottom BC
 ubx = (bx.*((bx-ax).^2))+(((y-ay)/(by-ay)).*((((bx-ax).^2).*cos(pi.*bx/ax))-(bx.*((bx-ax).^2))));   %Right BC
@@ -75,7 +75,7 @@ while error > tole
     u = ukp1;
 end
 
-disp('gauss iteration =')
+disp('Gauss Iteration for F =')
 disp(gaussit) %shows the total number of iteration to converge 
 
 figure(1)
@@ -83,7 +83,36 @@ mesh(x,y,u)
 xlabel('x')
 ylabel('y')
 zlabel('U')
-title('3D Solution using Gauss Seidel Method')
+title('3D Solution using Gauss Seidel Method for F ')
     
-    
+%% sor method
+
+error = 1;
+tole = 1e-6;
+gaussit = 0;
+ukp1 = u;
+w = 1.5;
+
+while error > tole
+    gaussit = gaussit + 1;
+    for j = 2:Ny-1
+        for i = 2:Nx-1
+            ukp1(i,j)=((w/4)*(u(i+1,j)+ukp1(i-1,j)+ u(i,j+1)+ ukp1(i,j-1)+(h*F(i,j))))+(1-w)*u(i,j);
+        end
+    end
+    error =(1/(Nx*Ny))*sum(sum(abs(ukp1-u)));
+    u = ukp1;
+end
+
+disp('Successive over Relaxation for F =')
+disp(gaussit) %shows the total number of iteration to converge 
+
+figure(2)
+mesh(x,y,u)
+xlabel('x')
+ylabel('y')
+zlabel('U')
+title('3D Solution using SOR Method for F ')
+
+
     
