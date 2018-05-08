@@ -1,6 +1,7 @@
 %German Robles
 %1456165
 %2D Poisson Equation
+%APc1-2 version
 %May 9th, 2018
 %Scientific Computing
 
@@ -82,9 +83,11 @@ while error > tole
     u = ukp1;
 end
 
+%iterations needed to solve
 disp('Number of Iterations using the Gauss Seidel method for F =')
 disp(gaussit)                   %shows the total number of iteration to converge 
 
+%plots solution
 figure(1)                       %plots the u solution on a x, y, and z plane
 mesh(x,y,u)
 xlabel('x')
@@ -114,9 +117,11 @@ while error > tole
     u = ukp1;
 end
 
+%iterations needed to solve
 disp('Number of Iterations using the SOR method for F =')
 disp(gaussit) %shows the total number of iteration to converge 
 
+%plots solution
 figure(2)                           %plots a second figure to display the SOR solution on a x, y, and z plane
 mesh(x,y,u)
 xlabel('x')
