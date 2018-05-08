@@ -101,7 +101,7 @@ error = 1;
 tole = 1e-6;
 gaussit = 0;
 ukp1 = u;
-w = 1.5;                        %relaxation factor used to solve the SOR method. ideally this value must be within 1 to 2. 
+w = 1.1;                        %relaxation factor used to solve the SOR method. ideally this value must be within 1 to 2. 
 %for this first calculation I used 1.5 but this value needs to be optimzed
 %to produce the best results possible in the form of the fastest
 %convergence
