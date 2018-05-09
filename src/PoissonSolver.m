@@ -37,8 +37,8 @@ y = flipud(y);                  %flipped y vector to have it go from -pi to pi i
 %boundary conditions defined
 fa = ((x-ax).^2).*cos(pi.*x/ax);            %equation used for the top boundary condition (dirichlet)
 ga = x.*((x-ax).^2);                        %equation used for the bottom boundary condition (dirichlet)
-%F = cos((pi/2).*(2.*((x-ax)/(bx-ax))+1)).*sin(pi.*((y-ay)/(by-ay)));                    %right hand side for poissons equation (first case) 
-F = zeros(Nx,Ny);              %right hand side for laplaces equation (second case)
+F = cos((pi/2).*(2.*((x-ax)/(bx-ax))+1)).*sin(pi.*((y-ay)/(by-ay)));                    %right hand side for poissons equation (first case) 
+%F = zeros(Nx,Ny);              %right hand side for laplaces equation (second case)
 uby = fa;                                     %top BC
 uay = ga;                                     %bottom BC
 ubx = (bx.*((bx-ax).^2))+(((y-ay)/(by-ay)).*((((bx-ax).^2).*cos(pi.*bx/ax))-(bx.*((bx-ax).^2))));   %Right BC
