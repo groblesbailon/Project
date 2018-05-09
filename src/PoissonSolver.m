@@ -84,7 +84,7 @@ while error > tole
 end
 
 %iterations needed to solve
-disp('Number of Iterations using the Gauss Seidel method for F=0 =')
+disp('Number of Iterations using the Gauss Seidel method for F =')
 disp(gaussit)                   %shows the total number of iteration to converge 
 
 %plots solution
@@ -93,7 +93,7 @@ mesh(x,y,u)
 xlabel('x')
 ylabel('y')
 zlabel('u')
-title('Solution using the Gauss Seidel Method for F=0 ')
+title('Solution using the Gauss Seidel Method for F ')
     
 %% second iterative method used to solve poisson equation: SOR method
 
@@ -118,7 +118,7 @@ while error > tole
 end
 
 %iterations needed to solve
-disp('Number of Iterations using the SOR method for F=0 =')
+disp('Number of Iterations using the SOR method for F =')
 disp(gaussit) %shows the total number of iteration to converge 
 
 %plots solution
@@ -127,7 +127,7 @@ mesh(x,y,u)
 xlabel('x')
 ylabel('y')
 zlabel('u')
-title('Solution using the SOR Method for F=0 ')
+title('Solution using the SOR Method for F ')
 
 
     
