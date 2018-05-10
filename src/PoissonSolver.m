@@ -54,7 +54,7 @@ u(2:Nx-1,Ny)=ubx(2:Nx-1,Ny);    %plugging in right BC's defined earlier on the u
 % neumann boundary condition on the left side of the u matrix
 
 for i = 2:Nx-1
-    u(i,1) = (1/4)*(2*u(i,1)+u(i-1,1)+u(i+1,1)+(h2)*F(i,1));    %algorithm used to calculate left BC since a ghost node is requiered 
+    u(i,1) = (1/4)*(2*u(i,2)+u(i-1,1)+u(i+1,1)+(h2)*F(i,1));    %algorithm used to calculate left BC since a ghost node is requiered 
 end
 
 % to provide bettter results, the corners will be calculated as averages of
