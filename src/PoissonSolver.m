@@ -67,25 +67,25 @@ u(Nx,Ny) = (u(Nx,Ny-1)+u(Nx-1,Ny))/2;   %average for bottom right corner
 
 %% first iterative method used to solve poisson equation: gauss seidel 
     
-error = 1;                      %define the error
-tole = 1e-6;                    %tolerance used when iterating using the gauss seidel method
-gaussit = 0;                    %keeps track of the number of iterations to date
-ukp1 = u;                       %defines the u (k+1) matrix to the original u matrix
+error1 = 1;                      %define the error
+tole1 = 1e-6;                    %tolerance used when iterating using the gauss seidel method
+gaussit1 = 0;                    %keeps track of the number of iterations to date
+ukp11 = u;                       %defines the u (k+1) matrix to the original u matrix
 
-while error > tole
-    gaussit = gaussit + 1;      %iterator count keeps growing for each iteration
+while error1 > tole1
+    gaussit1 = gaussit1 + 1;      %iterator count keeps growing for each iteration
     for j = 2:Ny-1
         for i = 2:Nx-1
-            ukp1(i,j)=.25*(ukp1(i-1,j)+u(i+1,j)+ukp1(i,j-1)+u(i,j+1)+h2*F(i,j));    %algorithm for the GS method
+            ukp11(i,j)=.25*(ukp11(i-1,j)+u(i+1,j)+ukp11(i,j-1)+u(i,j+1)+h2*F(i,j));    %algorithm for the GS method
         end
     end
-    error =(1/(Nx*Ny))*sum(sum(abs(ukp1-u)));           %calculated error used for the next iteration
-    u = ukp1;
+    error1 =(1/(Nx*Ny))*sum(sum(abs(ukp11-u)));           %calculated error used for the next iteration
+    u = ukp11;
 end
 
 %iterations needed to solve
 disp('Number of Iterations using the Gauss Seidel method for F =')
-disp(gaussit)                   %shows the total number of iteration to converge 
+disp(gaussit1)                   %shows the total number of iteration to converge 
 
 %plots solution
 figure(1)                       %plots the u solution on a x, y, and z plane
@@ -101,7 +101,7 @@ error = 1;
 tole = 1e-6;
 gaussit = 0;
 ukp1 = u;
-w = 1.1;                        %relaxation factor used to solve the SOR method. ideally this value must be within 1 to 2. 
+w = 1.9;                        %relaxation factor used to solve the SOR method. ideally this value must be within 1 to 2. 
 %for this first calculation I used 1.5 but this value needs to be optimzed
 %to produce the best results possible in the form of the fastest
 %convergence
